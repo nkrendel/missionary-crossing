@@ -149,7 +149,7 @@ public class Solver {
      * @param state current puzzle state
      * @return list of available moves
      */
-    private List<Move> getAvailableMoves(PuzzleState state) {
+    public List<Move> getAvailableMoves(PuzzleState state) {
         // maximum possible combinations: 1C, 1M, 2C, 2M, 1C1M
         List<Move> availableMoves = new ArrayList<>();
         Move.Direction direction;
@@ -197,7 +197,7 @@ public class Solver {
      * @param move move to apply
      * @return new puzzle state
      */
-    private PuzzleState apply(PuzzleState state, Move move) {
+    public PuzzleState apply(PuzzleState state, Move move) {
         // validate that the boat is on the right side
         PuzzleState.Position boatIsAt = state.getBoatPosition();
         if ((boatIsAt == PuzzleState.Position.LEFT_BANK && move.getDirection() == Move.Direction.RIGHT_TO_LEFT) ||

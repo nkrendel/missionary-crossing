@@ -44,15 +44,17 @@ public class PuzzleState {
     public boolean isValid() {
         validateState();    // if this fails there is a serious problem with applying or coming up with moves
 
-        long missionaries = count(getLeftBank(), MISSIONARY);
-        long cannibals  = count(getLeftBank(), CANNIBAL);
-        if (cannibals > missionaries && missionaries > 0) {
+        // more cannibals than missionaries on the left bank
+        long leftMissionaries = count(getLeftBank(), MISSIONARY);
+        long leftCannibals  = count(getLeftBank(), CANNIBAL);
+        if (leftCannibals > leftMissionaries && leftMissionaries > 0) {
             return false;
         }
 
-        missionaries = count(getRightBank(), MISSIONARY);
-        cannibals  = count(getRightBank(), CANNIBAL);
-        if (cannibals > missionaries && missionaries > 0) {
+        // more cannibals than missionaries on the right bank
+        long rightMissionaries = count(getRightBank(), MISSIONARY);
+        long rightCannibals  = count(getRightBank(), CANNIBAL);
+        if (rightCannibals > rightMissionaries && rightMissionaries > 0) {
             return false;
         }
 
@@ -104,6 +106,17 @@ public class PuzzleState {
         if (leftBank.size() + rightBank.size() > 6) {
             throw new PuzzleStateException("too many people on the board!");
         }
+
+        // more than 3 missionaries
+        if (count(leftBank, MISSIONARY) + count(rightBank, MISSIONARY) > 3) {
+            throw new PuzzleStateException("too many missionaries on the board!");
+        }
+
+        // more than 3 cannibals
+        if (count(leftBank, CANNIBAL) + count(rightBank, CANNIBAL) > 3) {
+            throw new PuzzleStateException("too many cannibals on the board!");
+        }
+
     }
 
     @Override
